@@ -1,0 +1,25 @@
+version: '3.8'
+
+# 进入容器 docker exec -it 
+# 创建repo svnadmin create example
+# 增加访问权限 chmod 777 -R example
+services:
+
+  svn-server:
+    build: .
+    container_name: svn-server
+    ports:
+      - "8082:80"
+    volumes:
+      - ./data:/var/svn
+      - ./svnaccess.conf:/var/svn/conf/svnaccess.conf
+    environment:
+      - 'AuthLDAPURL=ldap://ldap-server/ou=cloud,dc=mydomain,dc=com?uid NONE'
+      - 'AuthLDAPBindDN=cn=admin,dc=mydomain,dc=com'
+      - 'AuthLDAPBindPassword=admin'
+    restart: always
+
+networks:
+  default:
+    external: true
+    name: local-server-network
