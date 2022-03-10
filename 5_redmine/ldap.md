@@ -1,4 +1,9 @@
 ```
+# initial username and password
+admin/admin
+```
+
+```
   Name     = Some random description
   Host     = <IP of the host>
   Port     = <389>
