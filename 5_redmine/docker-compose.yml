@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+
+  redmine:
+    image: redmine
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: redmine
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+      REDMINE_DB_ENCODING: utf8mb4
+    volumes:
+      - ./data:/usr/src/redmine
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: redmine
+      MYSQL_DATABASE: redmine
+    volumes:
+      - ./data/db:/var/lib/mysql
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
