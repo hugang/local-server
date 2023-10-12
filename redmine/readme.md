@@ -1,6 +1,9 @@
 ```
-# initial username and password
-admin/admin
+cd {RAILS_ROOT}/plugins
+git clone https://github.com/onozaty/redmine-view-customize.git view_customize
+cd ../
+bundle install --without development test
+bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
 
 ```
@@ -19,3 +22,4 @@ Attributes
    Lastname  = sn
    Email     = mail
 ```
+![ldap.png](ldap.png)

@@ -10,13 +10,8 @@ services:
       - "./data/kanboard_data:/var/www/app/data"
       - "./config.php:/var/www/app/config.php"
       - "./data/kanboard_plugins:/var/www/app/plugins"
-      #- "./data/kanboard_ssl:/etc/nginx/ssl"
-#volumes:
-#  kanboard_data:
-#  kanboard_plugins:
-#  kanboard_ssl:
-
+    networks:
+      - hugang
 networks:
-  default:
+  hugang:
     external: true
-    name: local-server-network

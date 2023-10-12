@@ -18,10 +18,11 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-       - "8083:3000"
-       - "10022:22"
+      - "10022:22"
     depends_on:
       - gitea-db
+    networks:
+      - hugang
 
   gitea-db:
     image: mysql:5.7
@@ -34,8 +35,10 @@ services:
       - MYSQL_DATABASE=gitea
     volumes:
       - ./data/mysql:/var/lib/mysql
+    networks:
+      - hugang
 
 networks:
-  default:
+  hugang:
     external: true
-    name: local-server-network
+

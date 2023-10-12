@@ -1,12 +1,5 @@
 version: '3'
 
-# 创建外部网络，name: local-server-network
-# docker network create local-server-network
-# 登录时使用 cn=admin,dc=mydomain,dc=com
-# 创建Generic: Organisational Unit
-# 创建Generic: Posix Group
-# 创建Generic: User Account
-
 services:
   ldap-server:
     image: osixia/openldap:latest
@@ -14,13 +7,11 @@ services:
     container_name: ldap-server
     environment:
       LDAP_ORGANISATION: "cloud"
-      LDAP_DOMAIN: "mydomain.com"
+      LDAP_DOMAIN: "hugang.io"
       LDAP_ADMIN_PASSWORD: "admin"
     volumes:
       - "./data/database:/var/lib/ldap"
       - "./data/config:/etc/ldap/slapd.d"
-    #networks:
-    #  - webnet
 
   ldap-admin:
     image: osixia/phpldapadmin:latest
@@ -29,14 +20,14 @@ services:
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: "ldap"
       PHPLDAPADMIN_HTTPS: "false"
-    ports:
-      - "8080:80"
     links:
       - "ldap-server:ldap"
-    #networks:
-    #  - webnet
+    networks:
+      - hugang
+
 
 networks:
-  default:
+  hugang:
     external: true
-    name: local-server-network
+
+

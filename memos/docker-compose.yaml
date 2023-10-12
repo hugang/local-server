@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  memos-server:
+    image: neosmemo/memos:latest
+    container_name: memos-server
+    restart: always
+    #ports:
+    #  - "5230:5230"
+    volumes:
+      - ./data:/var/opt/memos
+    networks:
+      - hugang
+networks:
+  hugang:
+    external: true
